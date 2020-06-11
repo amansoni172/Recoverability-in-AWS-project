@@ -1,0 +1,11 @@
+1. Minimum RTO for a single AZ outage
+Our RDS instance is configured to use two subnet groups. Each subnet resides in a different AZ within the same region. In the case of a single AZ outage, we can continue to operate on the AZ which is still operational.
+
+2. Minimum RTO for a single region outage
+Minimum Recovery Time Objective (RTO) for a single region outage depends on the region which will experience an outage. If the problem occurs in the region where our Read-Replica is, then the RTO would be 0. On the other hand, if the issue happens where our master RDS instance is located then the minimum RTO would be the time that it takes for the replica in the standby region to be promoted.
+
+3. Minimum RPO for a single AZ outage
+In the case of a single AZ outage, we can continue to operate on the AZ which is still up. Multi-AZ configuration allows the system to reach a copy of the data in other AZ when one of them is inoperative. Thus the minimum RPO for a single AZ outage should be close to 0mins.
+
+4. Minimum RPO for a single region outage
+Same as with the minimum RTO for a single region outage it depends on the region which will go down. If the accident occurs in the standby region, the RPO will be 0mins, because all data can and will be saved into our active region database. However, if the outage happens in the active region, the minimum RPO would be the time required for replica instance to be promoted as master and become operational.
